@@ -15665,7 +15665,7 @@ The average duration over all fair games with recorded durations is 0 days 00:24
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creates a new dataset only containing fair games that white won which had nonzero duration</span>
@@ -15775,7 +15775,7 @@ jp-needs-light-background
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Disregarding an outlier around 4000, our distribution seems to be symmetric and unimodal around 1500. This lends credence to the idea that opening sequences might not have a significant effect on winning time, as the data is nearly normally distributed. This matches what we would expect if they all had the same average winning time. Continuing onwards despite this though, we can find which opening sequences took the longest and the least amount of time to win:</p>
+<p>Our distribution seems to be skewed right and unimodal with a peak around 1500 seconds, or about 25 minutes. However, it seems some opening sequences drifted towards nearly hour long games. We can now find which opening sequences took the longest and the least amount of time to win:</p>
 
 </div>
 </div>
@@ -15785,7 +15785,7 @@ jp-needs-light-background
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This sorts the openings by their durations, then we print out the statistical summary and the top and bottom 5</span>
@@ -15857,7 +15857,7 @@ Name: duration, dtype: float64
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>It looks like A20 was the outlier in the plots, taking 4375 seconds or about 73 minutes to finish its games. Considering the earlier unreliability of our data, this should probably be taken with a grain of salt. However, we can now say that the quickest winning opening sequences are A49, C22, B52, C58, and C26. Considering the plots though, it's important to see what a T-Test says about the significance of this result. We'll proceed in the exact same way as we did before, however due to the suspect nature of A20 we'll use A07 instead.</p>
+<p>It looks like the quickest winning opening sequences are C77, A03, D45, C27, and C61, wtih winning C77 games only taking around 7 minutes on average. However, it's important to see what a T-Test says about the significance of this result. We'll proceed in the exact same way as we did before, with a comparison of each of them to the opening sequence B57.</p>
 
 </div>
 </div>
@@ -15871,27 +15871,27 @@ Name: duration, dtype: float64
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This creates Series containing the durations of games using each opening</span>
-<span class="n">a07_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;A07&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
-<span class="n">c26_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C26&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
-<span class="n">c58_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C58&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
-<span class="n">b52_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;B52&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
-<span class="n">c22_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C22&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
-<span class="n">a49_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;A49&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">b57_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;B57&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">c77_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C77&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">a03_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;A03&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">d45_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D45&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">c27_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C27&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+<span class="n">c61_durations</span> <span class="o">=</span> <span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="n">valid_fair_wins_df</span><span class="p">[</span><span class="s2">&quot;opening_eco&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C61&quot;</span><span class="p">][</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
 
 <span class="c1">#Converts the durations to seconds to make the t-tests work</span>
-<span class="n">a07_durations</span> <span class="o">=</span> <span class="n">a07_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
-<span class="n">a49_durations</span> <span class="o">=</span> <span class="n">a49_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
-<span class="n">c22_durations</span> <span class="o">=</span> <span class="n">c22_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
-<span class="n">b52_durations</span> <span class="o">=</span> <span class="n">b52_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
-<span class="n">c58_durations</span> <span class="o">=</span> <span class="n">c58_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
-<span class="n">c26_durations</span> <span class="o">=</span> <span class="n">c26_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">b57_durations</span> <span class="o">=</span> <span class="n">b57_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">c77_durations</span> <span class="o">=</span> <span class="n">c77_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">a03_durations</span> <span class="o">=</span> <span class="n">a03_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">d45_durations</span> <span class="o">=</span> <span class="n">d45_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">c27_durations</span> <span class="o">=</span> <span class="n">c27_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+<span class="n">c61_durations</span> <span class="o">=</span> <span class="n">c61_durations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
 
 <span class="c1">#Carries out an independent t-test w/ no assumption of equal variance between the samples (seems reasonable)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a07_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">a49_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a07_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c22_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a07_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">b52_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a07_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c58_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a07_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c26_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">b57_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c77_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">b57_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">a03_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">b57_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">d45_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">b57_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c27_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">b57_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">c61_durations</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15913,11 +15913,11 @@ Name: duration, dtype: float64
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Ttest_indResult(statistic=1.0322508140838718, pvalue=0.3485519892237561)
-Ttest_indResult(statistic=1.042227868315162, pvalue=0.3448247098492884)
-Ttest_indResult(statistic=1.0376048785694147, pvalue=0.3452792151233667)
-Ttest_indResult(statistic=0.8117412119782935, pvalue=0.4531322660525688)
-Ttest_indResult(statistic=1.0016862051799895, pvalue=0.3621814680149846)
+<pre>Ttest_indResult(statistic=2.082237289282874, pvalue=0.07491381246450528)
+Ttest_indResult(statistic=2.0301078093192353, pvalue=0.08168367131308842)
+Ttest_indResult(statistic=1.9977451559987218, pvalue=0.0854744309353033)
+Ttest_indResult(statistic=1.993443262233397, pvalue=0.08575291266854121)
+Ttest_indResult(statistic=1.9596912080772422, pvalue=0.08935141726722717)
 </pre>
 </div>
 </div>
@@ -15933,7 +15933,7 @@ Ttest_indResult(statistic=1.0016862051799895, pvalue=0.3621814680149846)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>In this case, it looks like none of our results were significantly significant. Even though this is unfortunate, it serves as an important example of how even seemingly significant differences in results (about ~2000-3000 seconds) may not be statistically significant.</p>
+<p>In this case, it looks like none of our results were significantly significant. However, considering how close they are to 0.05 and the underlying issues with duration our dataset came with, this could be an interesting question for the reader to investigate themselves by expanding the dataset.</p>
 
 </div>
 </div>
